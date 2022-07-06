@@ -9,15 +9,14 @@
  */
 
 import React from 'react';
-import {SafeAreaView, ScrollView, Text} from 'react-native';
+import LoginScreen from './screens/Login';
+import RegisterScreen from './screens/Register';
 
 const App = () => {
   return (
-    <SafeAreaView>
-      <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <Text>App</Text>
-      </ScrollView>
-    </SafeAreaView>
+    <>
+      <RegisterScreen />
+    </>
   );
 };
 
