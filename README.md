@@ -10,7 +10,7 @@
 
 - [ ] [POST] API Register
 - [ ] [POST] API Login
-- [ ] [POST] API List Product
+- [ ] [GET] API List Product
 - [ ] [POST] API Update product qty
-- [ ] [POST] API List Message / History Chat
+- [ ] [GET] API List Message / History Chat
 - [ ] [POST] API Send Message
