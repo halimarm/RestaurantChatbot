@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {postRegister} from '../../api';
 import Button from './../../components/Button';
 import Space from './../../components/Space';
 import TextField from './../../components/TextField';
@@ -18,11 +19,19 @@ const RegisterScreen = () => {
 
   const handleOnClickLogin = () => {
     const params = {
+      fullName,
       email,
+      username,
       password,
     };
 
-    console.log(params);
+    postRegister(params)
+      .then(_ => {
+        // redirect to login screen
+      })
+      .catch(_ => {
+        console.log('error');
+      });
   };
 
   const handleRedirectToLogin = () => {

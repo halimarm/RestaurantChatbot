@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {postLogin} from '../../api';
 import Button from './../../components/Button';
 import Space from './../../components/Space';
 import TextField from './../../components/TextField';
@@ -20,7 +21,14 @@ const LoginScreen = () => {
       password,
     };
 
-    console.log(params);
+    postLogin(params)
+      .then(_ => {
+        // save token from response
+        // redirect to chat screen
+      })
+      .catch(_ => {
+        console.log('error');
+      });
   };
 
   const handleRedirectToRegister = () => {
@@ -31,7 +39,7 @@ const LoginScreen = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.wrapper}>
         <Text style={styles.heading}>
-          Selamat Datang di {`\n`}Restauran Steaky
+          Selamat Datang di {'\n'}Restauran Steaky
         </Text>
         <TextField value={email} placeholder="Email" onChangeText={setEmail} />
         <Space height={16} />
