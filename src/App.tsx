@@ -9,13 +9,47 @@
  */
 
 import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginScreen from './screens/Login';
 import RegisterScreen from './screens/Register';
+import ChatScreen from './screens/Chat';
 
 const App = () => {
+  const Stack = createNativeStackNavigator();
   return (
     <>
-      <RegisterScreen />
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Login"
+            component={LoginScreen}
+            options={{
+              title: '',
+              headerTransparent: true,
+              headerBackVisible: false,
+            }}
+          />
+          <Stack.Screen
+            name="Register"
+            component={RegisterScreen}
+            options={{
+              title: '',
+              headerTransparent: true,
+              headerBackVisible: false,
+            }}
+          />
+          <Stack.Screen
+            name="Chat"
+            component={ChatScreen}
+            options={{
+              title: 'Restaurant Steacky',
+              // headerTransparent: true,
+              headerBackVisible: false,
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
     </>
   );
 };

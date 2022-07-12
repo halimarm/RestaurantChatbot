@@ -1,6 +1,10 @@
+import { useNavigation } from '@react-navigation/native';
 import React, {useState} from 'react';
 import {
+  KeyboardAvoidingView,
+  Platform,
   SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -12,6 +16,8 @@ import Space from './../../components/Space';
 import TextField from './../../components/TextField';
 
 const LoginScreen = () => {
+  const navigation = useNavigation();
+
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
@@ -20,6 +26,8 @@ const LoginScreen = () => {
       email,
       password,
     };
+
+    navigation.navigate('Chat');
 
     postLogin(params)
       .then(_ => {
@@ -32,35 +40,48 @@ const LoginScreen = () => {
   };
 
   const handleRedirectToRegister = () => {
-    console.log('redirect to register');
+    navigation.navigate('Register');
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.wrapper}>
-        <Text style={styles.heading}>
-          Selamat Datang di {'\n'}Restauran Steaky
-        </Text>
-        <TextField value={email} placeholder="Email" onChangeText={setEmail} />
-        <Space height={16} />
-        <TextField
-          value={password}
-          placeholder="Password"
-          onChangeText={setPassword}
-          secureTextEntry={true}
-        />
-        <Space height={16} />
-        <Button title="Login" onPress={handleOnClickLogin} />
-        <Space height={12} />
-        <View style={styles.footer}>
-          <Text style={styles.text}>Tidak punya akun? </Text>
-          <TouchableOpacity
-            activeOpacity={1}
-            onPress={handleRedirectToRegister}>
-            <Text style={styles.textLink}>Daftar sekarang</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <ScrollView
+          style={styles.wrapper}
+          contentInsetAdjustmentBehavior="automatic"
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}>
+          <View style={styles.wrapper}>
+            <Text style={styles.heading}>
+              Selamat Datang di {'\n'}Restauran Steaky
+            </Text>
+            <TextField
+              value={email}
+              placeholder="Email"
+              onChangeText={setEmail}
+            />
+            <Space height={16} />
+            <TextField
+              value={password}
+              placeholder="Password"
+              onChangeText={setPassword}
+              secureTextEntry={true}
+            />
+            <Space height={16} />
+            <Button title="Login" onPress={handleOnClickLogin} />
+            <Space height={12} />
+            <View style={styles.footer}>
+              <Text style={styles.text}>Tidak punya akun? </Text>
+              <TouchableOpacity
+                activeOpacity={1}
+                onPress={handleRedirectToRegister}>
+                <Text style={styles.textLink}>Daftar sekarang</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };

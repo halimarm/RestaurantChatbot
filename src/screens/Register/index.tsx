@@ -1,6 +1,10 @@
+import { useNavigation } from '@react-navigation/native';
 import React, {useState} from 'react';
 import {
+  KeyboardAvoidingView,
+  Platform,
   SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -12,6 +16,8 @@ import Space from './../../components/Space';
 import TextField from './../../components/TextField';
 
 const RegisterScreen = () => {
+  const navigation = useNavigation();
+
   const [fullName, setFullName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [username, setUsername] = useState<string>('');
@@ -35,56 +41,67 @@ const RegisterScreen = () => {
   };
 
   const handleRedirectToLogin = () => {
-    console.log('redirect to login');
+    navigation.navigate('Login');
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.wrapper}>
-        <Text style={styles.heading}>Daftar Sekarang!</Text>
-        <TextField
-          value={fullName}
-          placeholder="Nama Lengkap"
-          onChangeText={setFullName}
-        />
-        <Space height={16} />
-        <TextField value={email} placeholder="Email" onChangeText={setEmail} />
-        <Space height={16} />
-        <TextField
-          value={username}
-          placeholder="Username"
-          onChangeText={setUsername}
-        />
-        <Space height={16} />
-        <TextField
-          value={password}
-          placeholder="Password"
-          onChangeText={setPassword}
-          secureTextEntry={true}
-        />
-        <Space height={16} />
-        <Button title="Login" onPress={handleOnClickLogin} />
-        <Space height={12} />
-        <View style={styles.footer}>
-          <Text style={styles.text}>Sudah punya akun? </Text>
-          <TouchableOpacity activeOpacity={1} onPress={handleRedirectToLogin}>
-            <Text style={styles.textLink}>Login sekarang</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <ScrollView
+          style={styles.wrapper}
+          contentInsetAdjustmentBehavior="automatic"
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}>
+          <Text style={styles.heading}>Daftar Sekarang!</Text>
+          <TextField
+            value={fullName}
+            placeholder="Nama Lengkap"
+            onChangeText={setFullName}
+          />
+          <Space height={16} />
+          <TextField
+            value={email}
+            placeholder="Email"
+            onChangeText={setEmail}
+          />
+          <Space height={16} />
+          <TextField
+            value={username}
+            placeholder="Username"
+            onChangeText={setUsername}
+          />
+          <Space height={16} />
+          <TextField
+            value={password}
+            placeholder="Password"
+            onChangeText={setPassword}
+            secureTextEntry={true}
+          />
+          <Space height={16} />
+          <Button title="Login" onPress={handleOnClickLogin} />
+          <Space height={12} />
+          <View style={styles.footer}>
+            <Text style={styles.text}>Sudah punya akun? </Text>
+            <TouchableOpacity activeOpacity={1} onPress={handleRedirectToLogin}>
+              <Text style={styles.textLink}>Login sekarang</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    margin: 16,
     flex: 1,
     justifyContent: 'center',
   },
   wrapper: {
     flexDirection: 'column',
     gap: 12,
+    padding: 16,
   },
   heading: {
     fontSize: 32,
